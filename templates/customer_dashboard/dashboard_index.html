@@ -1,0 +1,143 @@
+{% extends "customer_dashboard/base_dashboard.html" %} {# Cambiado para heredar de base_dashboard.html #}
+
+{% block dashboard_title %}Mi Panel de Control{% endblock %} {# Opcional: define un título específico para esta página del dashboard #}
+
+{% block dashboard_content %} {# Todo este contenido se moverá DENTRO de este bloque #}
+    {# Mensaje de bienvenida y resumen #}
+    <section class="welcome-section">
+        <h2>¡Hola, {{ current_user.username }}! <i class="bi bi-emoji-smile"></i></h2>
+        <p>Bienvenido a tu portal de autogestión de Customer Portal. Aquí puedes gestionar tus servicios y consultar tu información.</p>
+    </section>
+
+    {# El div dashboard-main-grid y sus columnas no van aquí si base_dashboard ya maneja la estructura de columnas #}
+    {# En cambio, dashboard_content es el "contenido principal" de la columna derecha #}
+
+    {# Sección de Overview de tarjetas #}
+    <section class="dashboard-overview-section"> {# Le doy un nombre de clase más específico para evitar conflictos #}
+        <h2><i class="bi bi-bar-chart-fill"></i> Resumen Rápido</h2>
+        <div class="dashboard-overview"> {# Este es el grid de overview-cards #}
+            <a href="#" class="overview-card">
+                <i class="bi bi-receipt-cutoff"></i>
+                <div>
+                    <h4>Última Factura</h4>
+                    <p>Monto: $55.000</p>
+                    <p>Vencimiento: 30/06/2025</p>
+                </div>
+            </a>
+            <a href="#" class="overview-card balance">
+                <i class="bi bi-wallet2"></i>
+                <div>
+                    <h4>Saldo Actual</h4>
+                    <p>A favor: $0.00</p>
+                </div>
+            </a>
+            <a href="#" class="overview-card service-status">
+                <i class="bi bi-wifi"></i>
+                <div>
+                    <h4>Estado de tus Servicios</h4>
+                    {# Iterar sobre los servicios contratados del usuario #}
+                    {% if user_services %}
+                        {% for service in user_services %}
+                            <p>{{ service.name }}: Activo</p> {# Asumiendo que siempre están 'Activo' una vez contratados #}
+                        {% endfor %}
+                    {% else %}
+                        <p>No tienes servicios contratados.</p>
+                    {% endif %}
+                </div>
+            </a>
+            <a href="#" class="overview-card notifications">
+                <i class="bi bi-bell"></i>
+                <div>
+                    <h4>Notificaciones</h4>
+                    <p>2 Pendientes</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+
+    {# Secciones de Contratar Nuevos Servicios, Operaciones Técnicas, Facturación, etc. #}
+    <section class="contract-service-section">
+        <h2><i class="bi bi-box-seam"></i> ¿Quieres contratar un nuevo servicio?</h2>
+        <div class="grid">
+            <a href="{{ url_for('customer_dashboard.customer_contract_service') }}" class="card action-card">
+                <i class="bi bi-plus-circle card-icon-top-right"></i>
+                <h3><i class="bi bi-cart-plus"></i> Contratar Servicio</h3>
+                <p>Explora y añade nuevos servicios a tu cuenta.</p>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="bi bi-gear"></i> Operaciones Técnicas</h2>
+        <div class="grid">
+            <a href="#" class="card">
+                <i class="bi bi-chat-left-dots card-icon-top-right"></i>
+                <h3><i class="bi bi-envelope-plus"></i> Creá tu reclamo</h3>
+                <p>Ingresá tus reclamos y haz seguimiento.</p>
+            </a>
+            <a href="{{ url_for('customer_dashboard.service_management') }}" class="card">
+                <i class="bi bi-activity card-icon-top-right"></i>
+                <h3><i class="bi bi-graph-up"></i> Estado de servicios</h3>
+                <p>Consultá mediciones y el estado actual de tus servicios.</p>
+            </a>
+            <a href="#" class="card">
+                <i class="bi bi-question-circle card-icon-top-right"></i>
+                <h3><i class="bi bi-life-preserver"></i> Otras gestiones</h3>
+                <p>Consultas generales, solicitudes y asistencia.</p>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="bi bi-cash-stack"></i> Facturación</h2>
+        <div class="grid">
+            <a href="#" class="card">
+                <i class="bi bi-file-earmark-text card-icon-top-right"></i>
+                <h3><i class="bi bi-file-earmark-medical"></i> Estado de cuenta</h3>
+                <p>Descargá tus facturas, adherite a débito automático y más.</p>
+            </a>
+            <a href="#" class="card">
+                <i class="bi bi-credit-card card-icon-top-right"></i>
+                <h3><i class="bi bi-credit-card-2-front"></i> Medios de pago</h3>
+                <p>Configurá tus formas de pago y realizá pagos en línea.</p>
+            </a>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="bi bi-graph-up-arrow"></i> Consumo Mensual (Ejemplo)</h2>
+        <div style="background-color: #f0f0f0; padding: 20px; border-radius: 8px; text-align: center; color: #666;">
+            <p>Aquí podría ir un gráfico interactivo de tu consumo de datos o minutos.</p>
+            <p>(Requiere librerías JavaScript de gráficos como Chart.js)</p>
+            <img src="https://via.placeholder.com/600x200?text=Gr%C3%A1fico+de+Consumo" alt="Gráfico de Consumo Ejemplo" style="max-width: 100%; height: auto; margin-top: 15px; border-radius: 5px;">
+        </div>
+    </section>
+
+    {# La sección "Información de Interés" (info-extranjeria-section y dashboard-card-info) #}
+    {# es la que estaba en el "dashboard-left-column" en el HTML original. #}
+    {# Para que aparezca a la izquierda y el contenido del dashboard_index a la derecha, #}
+    {# NO DEBES incluir el `dashboard-main-grid` directamente en dashboard_index.html. #}
+    {# La estructura de columnas debe ser manejada por base_dashboard.html. #}
+    {# Entonces, la siguiente sección de "Información Extranjería" DEBE MOVERSE a base_dashboard.html. #}
+
+    <script>
+        function toggleInfoExtranjeria(buttonElement) {
+            const card = buttonElement.closest('.info-extranjeria-card');
+            const details = card.querySelector('.info-extranjeria-details');
+            const toggleIcon = card.querySelector('.info-extranjeria-toggle-icon');
+
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+                buttonElement.innerHTML = '<i class="bi bi-arrow-up-circle"></i> Ocultar Información';
+                toggleIcon.classList.remove('bi-chevron-down');
+                toggleIcon.classList.add('bi-chevron-up');
+            } else {
+                details.style.display = 'none';
+                buttonElement.innerHTML = '<i class="bi bi-arrow-down-circle"></i> Mostrar Información';
+                toggleIcon.classList.remove('bi-chevron-up');
+                toggleIcon.classList.add('bi-chevron-down');
+            }
+        }
+    </script>
+{% endblock %}

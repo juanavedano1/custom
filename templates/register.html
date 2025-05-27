@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css.css') }}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="login-container">
+        <img class="login-logo" src="{{url_for('static',filename='imgs/custom.png')}}" alt="Logo de la Empresa">
+        <h1>Registrarse</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            <label for="username">Usuario</label>
+            {{ form.username(class="form-control", id="username", placeholder="Nombre de usuario") }}
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <span class="text-danger" style="color: red; font-size: 0.9em;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+
+            <label for="email">Email</label>
+            {{ form.email(class="form-control", id="email", placeholder="Tu email") }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <span class="text-danger" style="color: red; font-size: 0.9em;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+
+            <label for="password">Contraseña</label>
+            {{ form.password(class="form-control", id="password", placeholder="Contraseña") }}
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <span class="text-danger" style="color: red; font-size: 0.9em;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+
+            <label for="confirm_password">Confirmar Contraseña</label>
+            {{ form.confirm_password(class="form-control", id="confirm_password", placeholder="Repite la contraseña") }}
+            {% if form.confirm_password.errors %}
+                {% for error in form.confirm_password.errors %}
+                    <span class="text-danger" style="color: red; font-size: 0.9em;">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            
+            {{ form.submit(class="btn", value="Registrarse") }}
+        </form>
+        <p style="margin-top: 20px;"><a href="{{ url_for('login') }}" style="color: #007bff; text-decoration: none;">¿Ya tienes una cuenta? Inicia Sesión</a></p>
+    </div>
+</body>
+</html>

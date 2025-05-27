@@ -1,0 +1,70 @@
+{% extends "admin/admin_dashboard.html" %}
+
+{% block title %}Gestión de Usuarios - Admin{% endblock %}
+
+{% block admin_section_content %}
+<div class="admin-section">
+    <h2>Usuarios Registrados</h2>
+    <div class="table-responsive"> {# Agregamos un div para scroll horizontal en móviles #}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre de Usuario</th>
+                    <th>Email</th>
+                    <th>Tipo</th>
+                    <th>Estado</th> {# Nueva columna para el estado #}
+                    <th>Acciones</th> {# Nueva columna para acciones #}
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% if user.is_admin %}
+                            <span class="admin-tag">Administrador</span>
+                        {% else %}
+                            Cliente
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.is_active %}
+                            <span class="status-indicator active-status">Activo</span>
+                        {% else %}
+                            <span class="status-indicator inactive-status">Inactivo</span>
+                        {% endif %}
+                        {% if not user.is_admin and user.id != current_user.id %} {# No permitir cambiar el estado de un admin o de uno mismo #}
+                            <form action="{{ url_for('admin.toggle_user_active_status', user_id=user.id) }}" method="POST" style="display:inline; margin-left: 5px;">
+                                {{ toggle_form.csrf_token }} {# <--- ¡AGREGAR ESTA LÍNEA AQUÍ PARA EL TOKEN! #}
+                                <button type="submit" class="btn-action btn-sm {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}"
+                                        onclick="return confirm('¿Estás seguro de que quieres {% if user.is_active %}desactivar{% else %}activar{% endif %} la cuenta de {{ user.username }}?');">
+                                  
+                                        {% if user.is_active %}<i class="bi bi-person-x"></i> Desactivar{% else %}<i class="bi bi-person-check"></i> Activar{% endif %}
+                                </button>
+                            </form>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('admin.user_detail', user_id=user.id) }}" class="btn-action btn-info"><i class="bi bi-eye"></i> Ver</a>
+                        <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" class="btn-action btn-warning"><i class="bi bi-pencil"></i> Editar</a>
+                        <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar a {{ user.username }}? Esta acción es irreversible.');">
+                            {{ toggle_form.csrf_token }} {# <--- ¡AGREGAR ESTA LÍNEA PARA EL TOKEN EN EL FORMULARIO DE ELIMINAR! #}
+                            <button type="submit" class="btn-action btn-danger"><i class="bi bi-trash"></i> Eliminar</button>
+                        </form>
+                        {# Opcional: Botón para cambiar estado de servicio aquí o en detalle/edición #}
+                        {# <form action="{{ url_for('admin.toggle_user_service_status', user_id=user.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="btn-action btn-primary">
+                                    {% if user.has_active_service %}Desactivar Servicio{% else %}Activar Servicio{% endif %}
+                                </button>
+                             </form> #}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

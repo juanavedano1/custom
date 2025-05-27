@@ -1,0 +1,570 @@
+/* C:\Users\Juan Avedano\Desktop\Facultad\Proyecto\static\css\admin.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna */
+    background-color: #eef1f5; /* Fondo más claro y moderno */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+
+
+.admin-header {
+    background-color: #2c3e50; /* Azul oscuro */
+    color: white;
+    padding: 15px 30px; /* Más padding */
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2); /* Sombra más pronunciada */
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+.admin-header h1 {
+    margin: 0;
+    font-size: 2em; /* Más grande */
+    letter-spacing: 0.5px;
+}
+.admin-header .logout-btn {
+    background-color: #e74c3c; /* Rojo más vibrante */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.admin-header .logout-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px); /* Pequeño efecto hover */
+}
+
+/* --- Layout del Admin Dashboard --- */
+.admin-layout-container {
+    display: flex; /* Habilita Flexbox */
+    min-height: calc(100vh - 70px); /* Altura mínima, ajusta si el header cambia de altura */
+    margin-top: 0; /* No margin-top aquí, ya está en el header */
+}
+
+.admin-sidebar {
+    width: 250px; /* Ancho fijo del sidebar */
+    background-color: #34495e; /* Un tono de azul más oscuro para el sidebar */
+    color: white;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    flex-shrink: 0; /* Evita que el sidebar se encoja */
+}
+.admin-sidebar h2 {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 0 15px;
+    color: #ecf0f1; /* Color claro para el título */
+}
+.admin-sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.admin-sidebar nav li a {
+    display: block;
+    padding: 15px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.05em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-left: 5px solid transparent; /* Para el indicador activo */
+}
+.admin-sidebar nav li a i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+.admin-sidebar nav li a:hover {
+    background-color: #2c3e50; /* Fondo más oscuro al hover */
+    border-left-color: #3498db; /* Borde azul al hover */
+    color: #ffffff;
+}
+.admin-sidebar nav li a.active {
+    background-color: #2c3e50;
+    border-left-color: #3498db; /* Indicador activo */
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.admin-main-content {
+    flex-grow: 1; /* Ocupa el resto del espacio */
+    padding: 20px 30px;
+    background-color: #f8f9fa; /* Fondo ligeramente diferente para el contenido */
+}
+
+.admin-section {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+.admin-section h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+}
+.admin-section h2 i {
+    margin-right: 10px;
+}
+
+/* --- Tablas --- */
+.table-responsive {
+    overflow-x: auto; /* Para tablas que exceden el ancho en móviles */
+}
+.admin-table {
+    width: 100%;
+    border-collapse: separate; /* Para border-radius */
+    border-spacing: 0; /* Elimina espacio entre celdas */
+    margin-top: 15px;
+    border-radius: 8px; /* Bordes redondeados para la tabla */
+    overflow: hidden; /* Asegura que los bordes redondeados se apliquen */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.admin-table th, .admin-table td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 0.95em;
+    vertical-align: middle; /* Alineación vertical */
+}
+.admin-table th {
+    background-color: #f4f7f6; /* Color de cabecera más suave */
+    font-weight: 600; /* Más negrita */
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.admin-table tr:nth-child(even) {
+    background-color: #f9fbfb;
+}
+.admin-table tr:hover {
+    background-color: #eef1f5; /* Color al pasar el ratón */
+}
+.admin-table td:first-child { border-top-left-radius: 8px; }
+.admin-table td:last-child { border-top-right-radius: 8px; }
+.admin-table tr:last-child td:first-child { border-bottom-left-radius: 8px; }
+.admin-table tr:last-child td:last-child { border-bottom-right-radius: 8px; }
+
+
+/* --- Tags y Botones de Acción --- */
+.admin-tag {
+    background-color: #2ecc71; /* Verde más moderno */
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px; /* Más redondeado */
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.btn-action {
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9em;
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-right: 5px; /* Espacio entre botones */
+}
+.btn-action i {
+    margin-right: 5px;
+}
+.btn-info { background-color: #3498db; } /* Azul */
+.btn-info:hover { background-color: #2980b9; transform: translateY(-1px); }
+.btn-warning { background-color: #f39c12; } /* Naranja */
+.btn-warning:hover { background-color: #e67e22; transform: translateY(-1px); }
+.btn-danger { background-color: #e74c3c; } /* Rojo */
+.btn-danger:hover { background-color: #c0392b; transform: translateY(-1px); }
+.btn-primary { background-color: #1abc9c; } /* Turquesa */
+.btn-primary:hover { background-color: #16a085; transform: translateY(-1px); }
+.btn-secondary { background-color: #95a5a6; } /* Gris */
+.btn-secondary:hover { background-color: #7f8c8d; transform: translateY(-1px); }
+.btn-success { background-color: #28a745; } /* Verde para guardar/éxito */
+.btn-success:hover { background-color: #218838; }
+
+/* --- Mensajes Flash --- */
+.flash-messages-container {
+    margin-bottom: 20px;
+    margin-top: 0 !important; /* Anulamos el margin-top del estilo inline original */
+    padding: 0 0px;
+}
+.flash-message {
+    padding: 12px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    border: 1px solid transparent;
+}
+.flash-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+.flash-message.error, .flash-message.danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+.flash-message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+.flash-message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+}
+
+/* --- Detalle de Usuario --- */
+.user-detail-card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-top: 20px;
+}
+.user-detail-card h3 {
+    color: #2c3e50;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.user-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+.user-info-grid div {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+.user-info-grid strong {
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+.service-list li {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Para separar el texto y el botón */
+    border: 1px solid #eee;
+}
+.service-list li strong {
+    color: #2c3e50;
+    margin-right: 10px;
+}
+.btn-toggle-service {
+    background-color: #6c757d; /* Gris para el toggle */
+    font-size: 0.85em;
+    padding: 5px 10px;
+}
+.btn-toggle-service:hover {
+    background-color: #5a6268;
+}
+
+/* --- Formulario de Edición --- */
+.admin-form .form-group {
+    margin-bottom: 20px;
+}
+.admin-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+.admin-form input[type="text"],
+.admin-form input[type="email"],
+.admin-form select,
+.admin-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+.admin-form input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Hace el checkbox un poco más grande */
+}
+.service-toggle-group {
+    display: flex;
+    align-items: center;
+    background-color: #f0f3f6;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}
+.service-toggle-group label {
+    margin-bottom: 0;
+    flex-grow: 1; /* Ocupa el espacio restante */
+}
+.status-indicator {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: white;
+    margin-left: 10px;
+}
+.status-indicator.active {
+    background-color: #28a745; /* Verde */
+}
+.status-indicator.inactive {
+    background-color: #dc3545; /* Rojo */
+}
+
+/* --- Responsive para el panel de administración --- */
+@media (max-width: 992px) { /* Tabletas */
+    .admin-layout-container {
+        flex-direction: column; /* Apila sidebar y contenido */
+    }
+    .admin-sidebar {
+        width: 100%; /* Sidebar ocupa todo el ancho */
+        padding: 15px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .admin-sidebar nav ul {
+        display: flex; /* Elementos del menú en fila */
+        justify-content: space-around; /* Espacia los elementos */
+        flex-wrap: wrap; /* Permite que se envuelvan si no caben */
+    }
+    .admin-sidebar nav li {
+        margin: 0 5px;
+    }
+    .admin-sidebar nav li a {
+        padding: 10px 15px;
+        border-left: none; /* Quita el borde izquierdo */
+        border-bottom: 3px solid transparent; /* Nuevo indicador inferior */
+    }
+    .admin-sidebar nav li a.active {
+        border-bottom-color: #3498db;
+        border-left-color: transparent; /* Asegura que no haya borde lateral */
+    }
+    .admin-main-content {
+        padding: 20px;
+    }
+    .user-info-grid {
+        grid-template-columns: 1fr; /* Una sola columna en móviles */
+    }
+}
+
+@media (max-width: 768px) { /* Móviles */
+    .admin-header {
+        flex-direction: column;
+        padding: 10px;
+    }
+    .admin-header h1 {
+        margin-bottom: 10px;
+        font-size: 1.5em;
+    }
+    .admin-header .logout-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+    .admin-section {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .admin-section h2 {
+        font-size: 1.4em;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+    }
+    .admin-table th, .admin-table td {
+        padding: 8px;
+        font-size: 0.85em;
+    }
+    .admin-table {
+        border-radius: 0;
+    }
+    .btn-action {
+        padding: 5px 10px;
+        font-size: 0.8em;
+    }
+    .flash-message {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) { /* Móviles muy pequeños */
+    .admin-header {
+        padding: 8px;
+    }
+    .admin-header h1 {
+        font-size: 1.3em;
+    }
+    .admin-header .logout-btn {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+    .admin-main-content {
+        padding: 10px;
+    }
+    .admin-sidebar nav ul {
+        flex-direction: column; /* Apila los elementos del menú en móviles muy pequeños */
+        align-items: flex-start;
+    }
+    .admin-sidebar nav li {
+        margin: 0;
+        width: 100%; /* Ocupa todo el ancho disponible */
+    }
+}
+/* Estilos para los indicadores de estado Activo/Inactivo */
+.status-indicator {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    border-radius: 0.25rem;
+    font-size: 0.75em;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.active-status {
+    background-color: #28a745; /* Verde */
+    color: white;
+}
+
+.inactive-status {
+    background-color: #6c757d; /* Gris */
+    color: white;
+}
+
+/* Estilos para los botones de acción en tablas */
+.btn-action {
+    padding: 0.3em 0.6em;
+    font-size: 0.85em;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    display: inline-block;
+    margin: 2px;
+    cursor: pointer;
+    border: 1px solid transparent; /* Para que el borde no mueva el contenido al pasar el ratón */
+}
+
+.btn-action.btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+.btn-action.btn-info:hover {
+    background-color: #138496;
+}
+
+.btn-action.btn-warning {
+    background-color: #ffc107;
+    color: #212529; /* Color oscuro para contraste */
+}
+.btn-action.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-action.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-action.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-action.btn-success { /* Para el botón "Activar" de usuario */
+    background-color: #28a745;
+    color: white;
+}
+.btn-action.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Para el botón de "Desactivar" del servicio en admin_detail, si lo mantienes así */
+.btn-sm.btn-toggle-service { /* Asegúrate que esta clase exista en tu CSS */
+    font-size: 0.75em;
+    padding: 0.2em 0.4em;
+}
+
+/* Estilos para el grid de información del usuario en admin_detail.html */
+.user-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.user-info-grid div {
+    padding: 5px 0;
+    border-bottom: 1px dashed #e0e0e0;
+}
+.user-info-grid div:last-child {
+    border-bottom: none;
+}
+
+.user-info-grid strong {
+    color: #333;
+    min-width: 120px; /* Asegura alineación si los labels son de largo variable */
+    display: inline-block;
+}
+
+/* Estilos para las tarjetas de servicios */
+.list-group {
+    list-style: none;
+    padding: 0;
+}
+
+.list-group-item {
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    margin-bottom: 8px;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+
+.list-group-item strong {
+    color: #007bff;
+}
+
+.badge.bg-primary {
+    background-color: #007bff !important;
+    color: white;
+    padding: .4em .6em;
+    border-radius: 10rem;
+}

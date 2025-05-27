@@ -1,0 +1,782 @@
+/* Importar los iconos de Bootstrap */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+/* Estilos globales para el body */
+body {
+    margin: 0;
+    padding-top: 60px; /* Espacio para el header fijo */
+    padding-bottom: 130px; /* AUMENTADO: Más espacio para el footer fijo y elementos flotantes */
+    background-color: #f8f9fa; /* Fondo gris claro general */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente un poco más moderna */
+    color: #333;
+}
+
+/* Estilos del Header */
+.header {
+    background-color: #343a40; /* Color oscuro para el header */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Espacio entre logo/título y menú */
+    align-items: center;
+    position: fixed; /* Header fijo */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-sizing: border-box; /* Asegura que padding no aumente el ancho total */
+}
+.header .logo img {
+    height: 40px; /* Ajusta el tamaño del logo */
+    width: auto;
+    border-radius: 50%; /* Si quieres que el logo sea circular */
+    vertical-align: middle;
+}
+.header .menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.header .menu li {
+    margin-left: 20px; /* Espacio entre elementos del menú */
+}
+.header .menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; /* Evita que el texto del enlace se rompa en varias líneas */
+}
+.header .menu a:hover {
+    background-color: #495057;
+}
+.header .menu .customer {
+    font-size: 1.2em;
+    margin-right: 30px;
+}
+/* Iconos en el menú */
+.header .menu a i {
+    margin-right: 5px;
+}
+
+/* NUEVO: Estilos para el menú de usuario en el header (desplegable) */
+.header-user-menu-container {
+    position: relative; /* Contenedor para posicionar el dropdown */
+    margin-left: 30px; /* Espacio a la derecha del menú de navegación */
+    z-index: 1001; /* Asegura que esté por encima de otros elementos */
+}
+
+.header-user-menu-toggle {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.header-user-menu-toggle:hover {
+    background-color: #495057;
+}
+
+.header-user-menu-toggle i {
+    margin-right: 5px;
+}
+
+.header-user-menu-dropdown {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 100%; /* Justo debajo del botón/enlace del usuario */
+    right: 0; /* Alineado a la derecha del contenedor */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-width: 200px;
+    padding: 10px 0;
+    color: #333; /* Texto oscuro para el fondo claro */
+}
+
+.header-user-menu-dropdown.show {
+    display: block; /* Mostrar cuando la clase 'show' está presente */
+}
+
+.header-user-menu-dropdown h4 {
+    color: #007bff;
+    margin: 0 15px 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.header-user-menu-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header-user-menu-dropdown ul li a {
+    display: flex; /* Para alinear icono y texto */
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #555;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.header-user-menu-dropdown ul li a i {
+    margin-right: 10px;
+    color: #007bff;
+}
+
+.header-user-menu-dropdown ul li a:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+}
+
+.header-user-menu-dropdown p {
+    margin: 5px 15px;
+    font-size: 0.9em;
+    color: #777;
+}
+/* FIN NUEVO: Estilos para el menú de usuario en el header */
+
+
+/* Layout principal del Dashboard con columnas */
+.dashboard-layout {
+    max-width: 1500px;
+    margin: 20px auto;
+    padding: 0 20px; /* Mantén este padding para pantallas grandes */
+    box-sizing: border-box; /* Asegura que padding y border se incluyan en el ancho total */
+}
+
+/* Contenedor principal para las columnas del dashboard */
+.dashboard-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Columna izquierda (1fr) y contenido principal (3fr) */
+    gap: 30px; /* Espacio entre las columnas */
+    align-items: flex-start;
+}
+
+.dashboard-left-column {
+    /* Aquí puedes añadir estilos específicos para la columna izquierda si es necesario */
+    /* flex: 1; */ /* En caso de usar flexbox en lugar de grid */
+    min-width: 0; /* Permite que el contenido se encoja si es necesario */
+}
+
+.dashboard-right-content {
+    /* flex: 3; */ /* En caso de usar flexbox en lugar de grid */
+    min-width: 0; /* Permite que el contenido se encoja si es necesario */
+}
+
+.collapsible-panel {
+    /* dashboard-card-info ya le da un buen estilo de tarjeta */
+    margin-bottom: 20px; /* Espacio debajo de la tarjeta */
+}
+
+.collapsible-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer; /* Indica que es clickeable */
+    padding-bottom: 15px; /* Espacio entre el header y el contenido desplegable */
+    border-bottom: 1px dashed #eee; /* Línea divisoria suave */
+    margin-bottom: 15px;
+}
+
+.collapsible-header h3 {
+    margin: 0;
+    color: #007bff; /* Color para el título del panel */
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.collapsible-header h3 i {
+    color: #007bff; /* Color para el icono del título */
+    font-size: 1.1em;
+}
+
+.collapsible-header .toggle-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease;
+}
+
+.collapsible-header .toggle-button:hover {
+    background-color: #0056b3;
+}
+
+.collapsible-header .toggle-icon {
+    font-size: 1.2em;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.collapsible-details {
+    /* Aquí se aplica el display: none/block con JS */
+    padding-top: 10px; /* Espacio superior para el contenido desplegado */
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+}
+
+/* Ajustes para el sidebar dentro del panel colapsable */
+.collapsible-details .sidebar {
+    background-color: transparent; /* Quita el fondo blanco si ya está dentro de una tarjeta */
+    box-shadow: none; /* Quita la sombra si ya está dentro de una tarjeta */
+    padding: 0; /* Quita el padding si la tarjeta ya lo tiene */
+    border-radius: 0; /* Quita el border-radius */
+    margin-bottom: 0; /* Asegura que no haya margen extra */
+    width: 100%; /* Asegura que ocupe el 100% del contenedor padre */
+}
+
+.collapsible-details .sidebar h3 {
+    display: none; /* Oculta el h3 "Panel del Cliente" dentro del sidebar, ya lo tenemos en el header del colapsable */
+}
+
+.collapsible-details .sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.collapsible-details .sidebar nav ul li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #555;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 5px; /* Bordes redondeados para los enlaces */
+}
+
+.collapsible-details .sidebar nav ul li a:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+}
+
+.collapsible-details .sidebar nav ul li a i {
+    margin-right: 10px;
+    color: #007bff;
+}
+
+.collapsible-details .sidebar nav ul li a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.collapsible-details .sidebar nav ul li a.active i {
+    color: white;
+}
+
+
+/* Asegúrate de que las reglas para .info-extranjeria-header sigan el mismo patrón de click en el header */
+.info-extranjeria-header {
+    cursor: pointer; /* Hace que todo el header sea clickeable */
+}
+
+
+
+/* Estilos de las secciones de contenido */
+section {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+h2 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    display: flex; /* Usamos flexbox para alinear el icono y el texto */
+    align-items: center;
+    gap: 10px; /* Espacio entre el icono y el texto */
+}
+h2 i {
+    color: #007bff; /* Color de los iconos en los títulos de sección */
+    font-size: 1.2em; /* Tamaño del icono */
+}
+
+/* NUEVO: Estilos para la sección de bienvenida */
+.welcome-section {
+    background-color: #e0f2f7; /* Un color de fondo más claro para destacar */
+    padding: 40px 30px; /* Más padding para que respire */
+    text-align: center; /* Centra el contenido */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.welcome-section h2 {
+    font-size: 2.2em; /* Más grande y prominente */
+    color: #0056b3; /* Un azul más oscuro */
+    margin-bottom: 15px;
+    border-bottom: none; /* Quitamos la línea de abajo */
+    padding-bottom: 0;
+    justify-content: center; /* Centra el icono y el texto */
+}
+
+.welcome-section h2 i {
+    font-size: 1.5em;
+    color: #007bff;
+}
+
+.welcome-section p {
+    font-size: 1.1em;
+    color: #555;
+    max-width: 700px; /* Ancho máximo para el párrafo */
+    margin: 0 auto; /* Centrar el párrafo */
+}
+/* FIN NUEVO: Estilos para la sección de bienvenida */
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+.card {
+    background-color: #f2f7fc; /* Un color de fondo para las tarjetas */
+    border: 1px solid #e0e6ea;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative; /* Para posicionar el icono de esquina */
+    min-height: 120px; /* Altura mínima para que no queden muy pequeñas */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none; /* Quitar subrayado para los enlaces de tarjeta */
+    color: inherit; /* Heredar color de texto */
+    cursor: pointer; /* Indicar que es clicable */
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.card h3 {
+    color: #007bff;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.card h3 i {
+    font-size: 1.1em;
+    color: #007bff;
+}
+.card p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+.card .card-icon-top-right {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2.2em; /* Tamaño del icono grande en la esquina */
+    color: #d1e2f7; /* Color muy claro para que sea un elemento decorativo */
+    opacity: 0.7;
+}
+
+/* Estilos para el panel de resumen (Dashboard Overview) */
+.dashboard-overview {
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+.overview-card {
+    background-color: #ffffff;
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px; /* Aumentado el padding */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra para efecto flotante/profundidad */
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre icono y texto */
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    min-height: 100px; /* Altura mínima */
+    cursor: pointer; /* Indicar que es clicable */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none; /* Quitar subrayado para los enlaces de tarjeta */
+    color: inherit; /* Heredar color de texto */
+}
+.overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.overview-card i {
+    font-size: 2.5em; /* Tamaño del icono más grande */
+    color: #007bff;
+    margin-bottom: 10px;
+}
+.overview-card h4 {
+    margin: 0;
+    font-size: 1em; /* Un poco más grande */
+    color: #555;
+    font-weight: bold; /* Más negrita */
+}
+.overview-card p {
+    margin: 0;
+    font-size: 1.3em; /* Tamaño del valor */
+    font-weight: bold;
+    color: #333;
+}
+/* Colores de iconos y sombras por tipo de tarjeta */
+.overview-card.balance i { color: #28a745; }
+.overview-card.balance { box-shadow: 0 4px 12px rgba(40,167,69,0.15); } /* Sombra verde */
+.overview-card.service-status i { color: #ffc107; }
+.overview-card.service-status { box-shadow: 0 4px 12px rgba(255,193,7,0.15); } /* Sombra amarilla */
+.overview-card.notifications i { color: #dc3545; }
+.overview-card.notifications { box-shadow: 0 4px 12px rgba(220,53,69,0.15); } /* Sombra roja */
+
+
+/* NUEVO: Estilos para la sección de Información Extranjería */
+.info-extranjeria-section {
+    background-color: #fefefe; /* Fondo blanco */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px; /* Espacio debajo de la sección */
+}
+
+.info-extranjeria-card {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+.info-extranjeria-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer; /* Indicar que es clicable */
+}
+
+.info-extranjeria-header h3 {
+    margin: 0;
+    color: #007bff;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-extranjeria-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s ease;
+}
+
+.info-extranjeria-toggle:hover {
+    background-color: #0056b3;
+}
+
+.info-extranjeria-details {
+    padding-top: 15px;
+    border-top: 1px dashed #eee;
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+}
+
+.info-extranjeria-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.info-extranjeria-details p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.info-extranjeria-details ul {
+    list-style: disc;
+    margin-left: 20px;
+    padding: 0;
+    color: #555;
+    font-size: 0.9em;
+}
+
+.info-extranjeria-details ul li {
+    margin-bottom: 8px;
+}
+
+.btn-more-info {
+    display: inline-block;
+    background-color: #6c757d; /* Gris oscuro */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9em;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-more-info:hover {
+    background-color: #5a6268;
+}
+
+.info-extranjeria-toggle-icon {
+    font-size: 1.2em;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Animación para el desplegable */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Otros tipos de tarjetas en la columna izquierda (ej. Consejos Útiles) */
+.dashboard-card-info {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+.dashboard-card-info h3 {
+    color: #343a40;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.dashboard-card-info h3 i {
+    color: #28a745; /* Color de icono para estas tarjetas */
+    font-size: 1.1em;
+}
+.dashboard-card-info p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+
+/* Footer */
+.footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    position: fixed; /* Footer fijo */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-sizing: border-box; /* Asegura que padding no aumente el ancho */
+    max-width: 90%; /* Reducido el ancho del footer */
+    margin: 0 auto; /* Centra el footer */
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-left-radius: 8px; /* Bordes redondeados en la parte superior */
+    border-top-right-radius: 8px;
+}
+.footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+.footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.footer ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.footer ul li a:hover {
+    color: #007bff;
+}
+
+/* Estilos del botón flotante */
+.floating-menu {
+    position: fixed;
+    bottom: 110px; /* AUMENTADO: Ajustado para que esté más por encima del footer fijo */
+    right: 30px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+.chatbot-btn, .fab {
+    background-color: #28a745; /* Verde para chatbot */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease;
+}
+.fab {
+    background-color: #ffc107; /* Amarillo para FAB principal */
+}
+.chatbot-btn:hover { background-color: #218838; }
+.fab:hover { background-color: #e0a800; }
+
+.fab-options {
+    display: none; /* Oculto por defecto, se mostrará con JS */
+    flex-direction: column;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 10px;
+    min-width: 180px;
+}
+.fab-options a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    text-align: right;
+}
+.fab-options a:hover {
+    background-color: #f0f0f0;
+}
+
+
+/* Responsive menu (simplificado, similar a lo que ya tenías) */
+.menu-btn { display: none; }
+.menu-icon { cursor: pointer; padding: 28px 20px; position: relative; user-select: none; display: none; }
+.menu-icon .navicon { background: white; display: block; height: 2px; position: relative; transition: background .2s ease-out; width: 18px; }
+.menu-icon .navicon:before, .menu-icon .navicon:after { background: white; content: ''; display: block; height: 100%; position: absolute; transition: all .2s ease-out; width: 100%; }
+.menu-icon .navicon:before { top: 5px; }
+.menu-icon .navicon:after { top: -5px; }
+.menu-btn:checked ~ .menu-icon .navicon { background: transparent; }
+.menu-btn:checked ~ .menu-icon .navicon:before { transform: rotate(-45deg); top: 0; }
+.menu-btn:checked ~ .menu-icon .navicon:after { transform: rotate(45deg); top: 0; }
+
+
+/* Media queries para responsividad */
+@media (max-width: 992px) { /* Para tablets y pantallas más pequeñas */
+    .dashboard-main-grid { /* Cambiado de .dashboard-layout a .dashboard-main-grid */
+        grid-template-columns: 1fr; /* Apila las columnas */
+        padding: 0 15px;
+        gap: 20px;
+    }
+    .main-content, .dashboard-right-content, .dashboard-left-column { /* Ajustado para que ocupen todo el ancho */
+        width: 100%;
+        flex: none;
+    }
+    .overview-card {
+        min-width: unset;
+        width: 100%;
+    }
+    .header-user-menu-container {
+        position: static;
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        order: 1;
+    }
+    .header-user-menu-dropdown {
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        border-top: 1px solid #495057;
+    }
+    .header-user-menu-dropdown h4 {
+        text-align: center;
+    }
+    .header-user-menu-dropdown ul li a {
+        justify-content: center;
+    }
+    .header-user-menu-toggle {
+        justify-content: center;
+        width: 100%;
+        padding: 15px 20px;
+        border-radius: 0;
+        background-color: #495057;
+    }
+    .footer {
+        max-width: 100%; /* El footer ocupa todo el ancho en móviles */
+        border-radius: 0;
+    }
+    .floating-menu {
+        right: 15px; /* Ajuste para móviles */
+        bottom: 90px; /* Ajuste para móviles */
+    }
+}
+
+@media (max-width: 768px) { /* Para móviles */
+    .header {
+        padding: 10px;
+        flex-wrap: wrap;
+    }
+    .header .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #343a40;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        padding: 10px 0;
+    }
+    .header .menu li {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+    }
+    .header .menu a {
+        padding: 12px 0;
+        display: block;
+    }
+    .menu-icon { display: block; } /* Mostrar icono hamburguesa */
+    .header .menu .customer { display: none; } /* Ocultar "Customer Portal" en móvil para ahorrar espacio */
+}

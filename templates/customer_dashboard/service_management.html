@@ -1,0 +1,55 @@
+{% extends "customer_dashboard/base_dashboard.html" %}
+
+{% block title %}Mis Servicios Contratados{% endblock %}
+
+{% block dashboard_content %}
+<div class="contract-service-page-wrapper"> {# Reutilizamos las clases para el estilo flotante y centrado #}
+    <div class="contract-service-card">
+        <div class="card-header">
+            <h2><i class="bi bi-gear"></i> Gestión de Mis Servicios</h2>
+            <p>Aquí puedes ver tus servicios contratados y modificarlos si lo deseas.</p>
+        </div>
+        <div class="card-body">
+            {# Mensajes flash #}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="messages-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% if user_services %}
+                <div class="service-list-container"> {# Contenedor para los servicios listados #}
+                    {% for service in user_services %}
+                        <div class="service-item-card"> {# Cada servicio como una pequeña tarjeta #}
+                            <div class="service-info">
+                                <h4>{{ service.name }}</h4>
+                                <p>{{ service.description }}</p>
+                                <p><strong>Tipo:</strong> {{ service.type }}</p> {# Muestra el nuevo campo 'type' #}
+                                <p><strong>Precio:</strong> ${{ "%.2f"|format(service.price) }}</p>
+                                <p><strong>Estado:</strong> Activo</p> {# Asumiendo que siempre son activos una vez contratados #}
+                            </div>
+                            <div class="service-actions">
+                                <a href="{{ url_for('customer_dashboard.modify_service', service_id=service.id) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil-square"></i> Modificar
+                                </a>
+                                <form action="{{ url_for('customer_dashboard.unsubscribe_service', service_id=service.id) }}" method="POST" style="display:inline-block; margin-left: 10px;">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> {# MUY IMPORTANTE PARA SEGURIDAD #}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Estás seguro de que quieres dar de baja el servicio {{ service.name }}? Esta acción no se puede deshacer.');">
+                                    <i class="bi bi-trash"></i> Dar de Baja
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-center text-muted">Aún no tienes ningún servicio contratado. ¡Visita la sección "Contratar Servicios"!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

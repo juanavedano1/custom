@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}{% block dashboard_title %}Dashboard del Cliente{% endblock %}{% endblock %}
+
+{% block content %}
+    {# Mensajes flash #}
+    <div class="flash-messages-container" style="max-width: 1200px; margin: 80px auto 0; padding: 0 20px;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="dashboard-layout">
+        <div class="dashboard-main-grid">
+            <div class="dashboard-left-column">
+                {# NUEVO: Contenedor para el panel colapsable #}
+                <section class="dashboard-card-info collapsible-panel"> {# Añadimos 'collapsible-panel' para estilos y JS #}
+                    <div class="collapsible-header" onclick="toggleCollapsiblePanel('sidebar-nav-details', this)">
+                        <h3><i class="bi bi-person-lines-fill"></i> Panel del Cliente <i class="bi bi-chevron-down toggle-icon"></i></h3>
+                        <button class="toggle-button">Mostrar</button>
+                    </div>
+                    <div id="sidebar-nav-details" class="collapsible-details" style="display: block;"> {# Por defecto visible #}
+                        <aside class="sidebar"> {# La aside existente se mueve aquí #}
+                            <nav>
+                                <ul>
+                                    <li><a href="{{ url_for('customer_dashboard.index') }}" {% if active_tab == 'dashboard' %}class="active"{% endif %}><i class="bi bi-speedometer"></i> Dashboard</a></li>
+                                    <li><a href="{{ url_for('customer_dashboard.view_profile') }}" {% if active_tab == 'profile' %}class="active"{% endif %}><i class="bi bi-person-circle"></i> Mi Perfil</a></li>
+                                    <li><a href="{{ url_for('customer_dashboard.change_password') }}" {% if active_tab == 'change_password' %}class="active"{% endif %}><i class="bi bi-key"></i> Cambiar Contraseña</a></li>
+                                    <li><a href="{{ url_for('customer_dashboard.customer_contract_service') }}" {% if active_tab == 'contract_service' %}class="active"{% endif %}><i class="bi bi-plus-circle"></i> Contratar Servicio</a></li>
+                                    <li><a href="{{ url_for('customer_dashboard.service_management') }}" {% if active_tab == 'service_management' %}class="active"{% endif %}><i class="bi bi-gear"></i> Gestión de Servicios</a></li>
+                                    <li><a href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+                                </ul>
+                            </nav>
+                        </aside>
+                    </div>
+                </section>
+                {# FIN NUEVO: Contenedor para el panel colapsable #}
+
+                {# Sección de Información de Interés (la movimos aquí desde dashboard_index.html) #}
+                <section class="info-extranjeria-section">
+                    <h2><i class="bi bi-globe"></i> Información de Interés</h2>
+                    <div class="info-extranjeria-card">
+                        <div class="info-extranjeria-header" onclick="toggleInfoExtranjeria(this)"> {# Añadido onclick para el header #}
+                            <h3>Trámites de Extranjería <i class="bi bi-chevron-down info-extranjeria-toggle-icon"></i></h3>
+                            <button class="info-extranjeria-toggle">Mostrar Información</button> {# Quitamos el onclick de aquí #}
+                        </div>
+                        <div class="info-extranjeria-details" style="display: none;">
+                            <img src="{{ url_for('static', filename='imgs/informacion_extranjeria_placeholder.png') }}" alt="Información de Extranjería" class="info-extranjeria-img">
+                            <p>Aquí encontrarás detalles importantes sobre procesos migratorios, requisitos de visa, residencias y otros documentos necesarios para extranjeros.</p>
+                            <ul>
+                                <li>Requisitos para residencia temporaria.</li>
+                                <li>Documentación para renovación de DNI.</li>
+                                <li>Procedimientos para solicitud de ciudadanía.</li>
+                                <li>Información de contacto de oficinas de extranjería.</li>
+                            </ul>
+                            <a href="#" class="btn-more-info">Ver más detalles</a>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card-info">
+                        <h3><i class="bi bi-lightbulb"></i> Consejos Útiles</h3>
+                        <p>Encuentra guías y tutoriales para aprovechar al máximo tu portal.</p>
+                        <a href="#" class="btn-more-info">Explorar guías</a>
+                    </div>
+                    <div class="dashboard-card-info">
+                        <h3><i class="bi bi-calendar-event"></i> Próximos Eventos</h3>
+                        <p>Mantente al tanto de webinars y anuncios importantes.</p>
+                        <a href="#" class="btn-more-info">Ver calendario</a>
+                    </div>
+                </section>
+            </div>
+
+            <main class="dashboard-right-content">
+                {% block dashboard_content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    {# Scripts para los paneles colapsables #}
+    <script>
+        function toggleInfoExtranjeria(headerElement) {
+            const card = headerElement.closest('.info-extranjeria-card');
+            const details = card.querySelector('.info-extranjeria-details');
+            const toggleIcon = headerElement.querySelector('.info-extranjeria-toggle-icon');
+            const button = headerElement.querySelector('.info-extranjeria-toggle');
+
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+                button.innerHTML = '<i class="bi bi-arrow-up-circle"></i> Ocultar Información';
+                toggleIcon.classList.remove('bi-chevron-down');
+                toggleIcon.classList.add('bi-chevron-up');
+            } else {
+                details.style.display = 'none';
+                button.innerHTML = '<i class="bi bi-arrow-down-circle"></i> Mostrar Información';
+                toggleIcon.classList.remove('bi-chevron-up');
+                toggleIcon.classList.add('bi-chevron-down');
+            }
+        }
+
+        function toggleCollapsiblePanel(detailsId, headerElement) {
+            const details = document.getElementById(detailsId);
+            const toggleIcon = headerElement.querySelector('.toggle-icon');
+            const button = headerElement.querySelector('.toggle-button');
+
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+                button.textContent = 'Ocultar';
+                toggleIcon.classList.remove('bi-chevron-down');
+                toggleIcon.classList.add('bi-chevron-up');
+            } else {
+                details.style.display = 'none';
+                button.textContent = 'Mostrar';
+                toggleIcon.classList.remove('bi-chevron-up');
+                toggleIcon.classList.add('bi-chevron-down');
+            }
+        }
+    </script>
+
+{% endblock %}

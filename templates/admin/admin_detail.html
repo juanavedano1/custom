@@ -1,0 +1,66 @@
+{% extends "admin/admin_dashboard.html" %}
+
+{% block title %}Detalle de Usuario - Admin{% endblock %}
+
+{% block admin_section_content %}
+<div class="admin-section user-detail-card">
+    <h2>Detalle del Usuario: {{ user.username }}</h2>
+    <div class="user-info-grid">
+        <div><strong>ID:</strong> {{ user.id }}</div>
+        <div><strong>Nombre de Usuario:</strong> {{ user.username }}</div>
+        <div><strong>Email:</strong> {{ user.email }}</div>
+        <div><strong>Tipo:</strong>
+            {% if user.is_admin %}
+                <span class="admin-tag">Administrador</span>
+            {% else %}
+                Cliente
+            {% endif %}
+        </div>
+        {# Asumiendo que User tiene estos campos #}
+        {% if user.registration_date %}<div><strong>Fecha de Registro:</strong> {{ user.registration_date.strftime('%d/%m/%Y %H:%M') }}</div>{% endif %}
+        {% if user.last_login %}<div><strong>Último Acceso:</strong> {{ user.last_login.strftime('%d/%m/%Y %H:%M') }}</div>{% endif %}
+        
+        <div>
+            <strong>Estado de Cuenta:</strong>
+            {% if user.is_active %}
+                <span class="status-indicator active-status">Activo</span>
+            {% else %}
+                <span class="status-indicator inactive-status">Inactivo</span>
+            {% endif %}
+            {# Botón para cambiar el estado de actividad del usuario #}
+            {% if not user.is_admin and user.id != current_user.id %} {# No permitir cambiar el estado de un admin o de uno mismo #}
+                <form action="{{ url_for('admin.toggle_user_active_status', user_id=user.id) }}" method="POST" style="display:inline; margin-left: 10px;">
+                    {{ toggle_form.csrf_token }} {#  ¡Esta línea asegura que el token se renderice! #}
+                    <button type="submit" class="btn-action {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}"
+                            onclick="return confirm('¿Estás seguro de que quieres {% if user.is_active %}desactivar{% else %}activar{% endif %} la cuenta de {{ user.username }}?');">
+                        {% if user.is_active %}Desactivar{% else %}Activar{% endif %}
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </div> {# Cierre de user-info-grid #}
+
+    <h3 class="mt-4">Servicios Contratados</h3>
+    {% if user_services %}
+        <ul class="list-group">
+            {% for service in user_services %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ service.name }}</strong> {% if service.type %}({{ service.type }}){% endif %}
+                        <br>
+                        {% if service.description %}<small>{{ service.description }}</small>{% endif %}
+                    </div>
+                    {% if service.price is not none %}<span class="badge bg-primary rounded-pill">${{ "%.2f"|format(service.price) }}</span>{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-muted">Este usuario no tiene servicios contratados actualmente.</p>
+    {% endif %}
+
+    <div class="user-detail-actions mt-4">
+        <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Editar Usuario</a>
+        <a href="{{ url_for('admin.manage_users') }}" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Volver a Usuarios</a>
+    </div>
+</div>
+{% endblock %}

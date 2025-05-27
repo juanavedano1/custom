@@ -1,0 +1,347 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5; /* Un gris claro para el fondo */
+    display: flex; /* Usamos flexbox para centrar el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
+}
+
+.login-container {
+    background-color: #ffffff; /* Fondo blanco para el contenedor flotante */
+    padding: 40px; /* Espacio interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave para el efecto flotante */
+    width: 100%;
+    max-width: 400px; /* Ancho máximo del contenedor */
+    text-align: center; /* Centra el texto dentro del contenedor */
+    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 2em;
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos del formulario en columna */
+    gap: 15px; /* Espacio entre los elementos del formulario */
+}
+
+label {
+    text-align: left; /* Alinea las etiquetas a la izquierda */
+    font-weight: bold;
+    color: #555;
+    margin-bottom: -10px; /* Ajuste para acercar la etiqueta al input */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Crucial para que el padding no aumente el ancho total */
+}
+
+input[type="submit"] {
+    background-color: #007bff; /* Color azul para el botón de enviar */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+}
+.login-logo {
+width: 120px; 
+height: 120px;
+border-radius: 50%;
+object-fit: cover;
+margin-bottom: 15px; 
+}
+
+/* Opcional: Estilos para mensajes de error o flash (si los añades después) */
+.flash-message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.flash-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.flash-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+/* Estilos generales para las páginas de servicio/formulario que usan contract-service-page-wrapper */
+.contract-service-page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinea arriba para que no se pegue al fondo */
+    min-height: calc(100vh - 120px); /* Ajusta para el footer y header si los tienes */
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.contract-service-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    padding: 35px;
+    width: 100%;
+    max-width: 800px; /* Ancho máximo para la tarjeta principal */
+    animation: fadeIn 0.5s ease-out;
+}
+
+.contract-service-card .card-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contract-service-card .card-header h2 {
+    font-size: 2.2em;
+    color: #34495e;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacio entre el icono y el texto */
+}
+
+.contract-service-card .card-header p {
+    color: #7f8c8d;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Estilos para los mensajes flash */
+.messages-container {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.alert-success {
+    background-color: #e6ffee;
+    color: #27ae60;
+    border: 1px solid #2ecc71;
+}
+
+.alert-danger {
+    background-color: #ffe6e6;
+    color: #e74c3c;
+    border: 1px solid #c0392b;
+}
+
+.alert-info {
+    background-color: #e6f7ff;
+    color: #3498db;
+    border: 1px solid #2980b9;
+}
+
+/* Estilos para la lista de servicios en service_management.html */
+.service-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas responsivas para los ítems */
+    gap: 25px; /* Espacio entre las tarjetas de servicio */
+    margin-top: 20px;
+}
+
+.service-item-card {
+    background-color: #fefefe;
+    border: 1px solid #e9e9e9;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-item-card:hover {
+    transform: translateY(-3px); /* Ligero efecto flotante al pasar el ratón */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-info h4 {
+    font-size: 1.4em;
+    color: #34495e;
+    margin-bottom: 8px;
+}
+
+.service-info p {
+    font-size: 0.95em;
+    color: #667788;
+    margin-bottom: 5px;
+}
+
+.service-info p strong {
+    color: #555;
+}
+
+.service-actions {
+    margin-top: 20px;
+    text-align: right; /* Alinea el botón a la derecha */
+}
+
+/* Estilos para los botones */
+.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; /* Para alinear icono y texto */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espacio entre icono y texto */
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #3498DB;
+    color: #FFFFFF;
+    border: 1px solid #3498DB;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn-outline-primary {
+    border-color: #3498DB;
+    color: #3498DB;
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    background-color: #3498DB;
+    color: #FFFFFF;
+}
+
+.btn-secondary {
+    background-color: #95a5a6;
+    color: #FFFFFF;
+    border: 1px solid #95a5a6;
+}
+
+.btn-secondary:hover {
+    background-color: #7f8c8d;
+    border-color: #7f8c8d;
+}
+
+.btn-outline-secondary {
+    border-color: #95a5a6;
+    color: #95a5a6;
+    background-color: transparent;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #95a5a6;
+    color: #FFFFFF;
+}
+
+.btn-block {
+    display: block; /* Para que ocupe todo el ancho disponible */
+    width: 100%;
+}
+
+.d-grid.gap-2 {
+    display: grid;
+    gap: 15px; /* Espacio entre los botones */
+    margin-top: 25px;
+}
+
+/* Estilos para formularios (campos, etiquetas) */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box; /* Asegura que padding no aumente el ancho total */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #3498DB;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+.invalid-feedback {
+    color: #e74c3c;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+.form-text.text-muted {
+    font-size: 0.85em;
+    color: #7f8c8d !important; /* !important para asegurar que sobreescriba si hay otros estilos */
+    margin-top: 5px;
+    display: block;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Íconos de Bootstrap (si estás usando Bootstrap Icons) */
+.bi {
+    vertical-align: -0.125em; /* Ajuste fino para la alineación del icono */
+    font-size: 1.1em;
+}
+/* Estilos para el botón de Dar de Baja */
+.btn-outline-danger {
+    border-color: #e74c3c; /* Rojo para advertencia */
+    color: #e74c3c;
+    background-color: transparent;
+}
+
+.btn-outline-danger:hover {
+    background-color: #e74c3c;
+    color: #FFFFFF;
+}

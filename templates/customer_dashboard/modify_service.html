@@ -1,0 +1,63 @@
+{% extends "customer_dashboard/base_dashboard.html" %}
+
+{% block title %}Modificar Servicio{% endblock %}
+
+{% block dashboard_content %}
+<div class="contract-service-page-wrapper">
+    <div class="contract-service-card">
+        <div class="card-header">
+            <h2><i class="bi bi-pencil-square"></i> Modificar Servicio: {{ service.name }}</h2>
+            <p>Selecciona un nuevo plan para tu servicio actual.</p>
+        </div>
+        <div class="card-body">
+            {# Mensajes flash #}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="messages-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('customer_dashboard.modify_service', service_id=service.id) }}" class="p-4">
+                {{ form.hidden_tag() }} {# Incluye el CSRF token #}
+
+                <div class="form-group mb-3">
+                    {{ form.plan.label(class="form-label") }}
+                    {{ form.plan(class="form-control") }}
+                    {% if form.plan.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.plan.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <small class="form-text text-muted">Tu plan actual es: <strong>{{ service.name }} (${{ "%.2f"|format(service.price) }})</strong> (Tipo: {{ service.type }})</small>
+                </div>
+
+                {# Si hubieras añadido un campo de descripción editable, aquí lo renderizarías: #}
+                {# <div class="form-group mb-3">
+                    {{ form.description.label(class="form-label") }}
+                    {{ form.description(class="form-control", rows=3) }}
+                    {% if form.description.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.description.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div> #}
+
+                <div class="d-grid gap-2">
+                    {{ form.submit(class="btn btn-primary btn-block") }}
+                    <a href="{{ url_for('customer_dashboard.service_management') }}" class="btn btn-outline-secondary btn-block">
+                        <i class="bi bi-arrow-left"></i> Volver a Mis Servicios
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

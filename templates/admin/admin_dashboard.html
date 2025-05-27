@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Panel de Administración{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/css.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <div class="admin-header">
+        <h1>Panel de Administración</h1>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Cerrar Sesión</a>
+    </div>
+
+    <div class="admin-layout-container"> {# Contenedor principal con sidebar y contenido #}
+        <aside class="admin-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('admin.dashboard') }}" class="{% if active_tab == 'overview' %}active{% endif %}"><i class="bi bi-speedometer2"></i> Resumen</a></li>
+                    <li><a href="{{ url_for('admin.manage_users') }}" class="{% if active_tab == 'users' %}active{% endif %}"><i class="bi bi-people"></i> Gestión de Usuarios</a></li>
+                    {# Aquí puedes añadir más enlaces para otras secciones del admin #}
+                    <li><a href="{{ url_for('admin.settings') }}" class="{% if active_tab == 'settings' %}active{% endif %}"><i class="bi bi-gear"></i> Configuración</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main-content">
+            {# Mensajes flash - Mantenemos el bloque existente #}
+            <div class="flash-messages-container" style="max-width: 1200px; margin: 20px auto 0; padding: 0 20px;">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            {% block admin_section_content %}
+                {# Este bloque será rellenado por las plantillas específicas de cada sección del admin #}
+                {# Por ejemplo, admin_users.html o admin_user_detail.html #}
+            {% endblock %}
+        </main>
+    </div>
+</body>
+</html>

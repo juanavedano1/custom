@@ -1,0 +1,126 @@
+{% extends "admin/admin_dashboard.html" %}
+
+{% block title %}Editar Usuario - Admin{% endblock %}
+
+{% block admin_section_content %}
+<div class="admin-section edit-user-form-container">
+    <h2>Editar Usuario: {{ user.username }}</h2> {# Puedes mantener esto, o usar form.username.data #}
+    
+    {# Display flash messages here if you haven't already in admin_dashboard.html #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('admin.edit_user', user_id=user.id) }}" class="admin-form">
+        {{ form.hidden_tag() }} {# ¡ESTO ES CRUCIAL! #}
+
+        <div class="form-group">
+            {{ form.username.label(class="form-control-label") }}
+            {{ form.username(class="form-control") }}
+            {% if form.username.errors %}
+                <div class="invalid-feedback d-block"> {# Usar d-block para que se muestre el error #}
+                    {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.email.label(class="form-control-label") }}
+            {{ form.email(class="form-control") }}
+            {% if form.email.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        {# CAMPOS DE CONTRASEÑA - AHORA SÍ APARECERÁN #}
+        <div class="form-group">
+            {{ form.password.label(class="form-control-label") }}
+            {{ form.password(class="form-control") }}
+            {% if form.password.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.confirm_password.label(class="form-control-label") }}
+            {{ form.confirm_password(class="form-control") }}
+            {% if form.confirm_password.errors %}
+                <div class="invalid-feedback d-block">
+                    {% for error in form.confirm_password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        {# Si UserEditForm tiene un campo is_admin y quieres que se pueda editar #}
+        {# Asegúrate de que UserEditForm en forms.py tenga un BooleanField para 'is_admin' #}
+        {# Y que en app.py, lo asignes: user.is_admin = form.is_admin.data #}
+        {% if form.is_admin %}
+            <div class="form-group form-check">
+                {{ form.is_admin(class="form-check-input") }}
+                {{ form.is_admin.label(class="form-check-label") }}
+                {% if form.is_admin.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.is_admin.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {# Si UserEditForm tiene un campo is_active y quieres que se pueda editar #}
+        {# Asegúrate de que UserEditForm en forms.py tenga un BooleanField para 'is_active' #}
+        {# Y que en app.py, lo asignes: user.is_active = form.is_active.data #}
+        {% if form.is_active %}
+            <div class="form-group form-check">
+                {{ form.is_active(class="form-check-input") }}
+                {{ form.is_active.label(class="form-check-label") }}
+                {% if form.is_active.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.is_active.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+
+        <h3>Gestión de Servicios:</h3>
+        {# Asumiendo que user_services se pasa como una lista separada #}
+        {% if user_services %}
+            {% for service in user_services %}
+                <div class="form-group service-toggle-group">
+                    <label for="service_{{ service.id }}">{{ service.name }}:</label>
+                    {# Nota: Si ServiceForm o ServiceEditForm existe, es mejor usarlo aquí #}
+                    <input type="checkbox" id="service_{{ service.id }}" name="service_status_{{ service.id }}" value="active" {% if service.status %}checked{% endif %}>
+                    <span class="status-indicator {% if service.status %}active{% else %}inactive{% endif %}">
+                        {% if service.status %}Activo{% else %}Inactivo{% endif %}
+                    </span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No hay servicios asociados para editar.</p>
+        {% endif %}
+
+        {{ form.submit(class="btn btn-success") }} {# Usa el botón submit del formulario #}
+        <a href="{{ url_for('admin.user_detail', user_id=user.id) }}" class="btn btn-secondary"><i class="bi bi-x-circle"></i> Cancelar</a>
+    </form>
+</div>
+{% endblock %}
